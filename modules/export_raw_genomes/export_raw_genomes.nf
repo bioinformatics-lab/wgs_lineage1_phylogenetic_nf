@@ -1,11 +1,12 @@
 nextflow.enable.dsl = 2
 
 process EXPORT_RAW_GENOMES {
+	tag "${genomeName}"
 	publishDir "${params.resultsDir}"
 	errorStrategy 'ignore'
 
     input:
-    set genomeName, file(genomeReads)
+    tuple val(genomeName), file(genomeReads)
 
     output: 
     file(genomeReads)
