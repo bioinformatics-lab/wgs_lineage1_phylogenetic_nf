@@ -1,14 +1,14 @@
 nextflow.enable.dsl = 2
 
 process EXPORT_RAW_GENOMES {
-	publishDir "${params.resultsDir}", mode: "copy", overwrite: true, pattern: "*.fastq.gz"
+	publishDir "${params.resultsDir}"
 	errorStrategy 'ignore'
 
     input:
     set genomeName, file(genomeReads)
 
     output: 
-    	file("*.fastq.gz")
+    file(genomeReads)
 
     script:   
     """
