@@ -1,6 +1,9 @@
 resultsDir:
   'results/malawiGenomes'
 
+saveMode:
+	'copy'
+	
 apiKey:
   "FIXME"
 

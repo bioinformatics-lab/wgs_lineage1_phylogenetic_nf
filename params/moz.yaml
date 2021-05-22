@@ -1,8 +1,11 @@
 resultsDir:
   'results/mozGenomes'
 
+saveMode:
+  'copy'
+
 apiKey:
-  "FIXME"
+  "824885c5294264563047df639bd607403707"
 
 genomeIds:
   - SAMEA5938985
