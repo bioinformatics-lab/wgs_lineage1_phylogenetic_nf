@@ -1,6 +1,9 @@
 resultsDir:
   'results/ghanaGenomes'
 
+saveMode:
+	'copy'
+	
 apiKey:
   "FIXME"
 

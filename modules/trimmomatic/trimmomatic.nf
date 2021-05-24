@@ -1,4 +1,4 @@
-# based on https://github.com/nf-modules/trimmomatic.git
+// based on https://github.com/nf-modules/trimmomatic.git
 nextflow.enable.dsl =2
 /*
 params.saveMode = 'copy'
@@ -16,7 +16,8 @@ process TRIMOMMATIC {
     input:
     tuple val(genomeName), file(genomeReads)
     output:
-    tuple path(fq_1_paired), path(fq_2_paired), emit: ch_out_trimmomatic
+    tuple file(fq_1_paired),file(fq_2_paired), emit: trimmed_reads
+    tuple val(genomeName), file(fq_1_paired),file(fq_2_paired), emit: spades_reads
 
     script:
 
