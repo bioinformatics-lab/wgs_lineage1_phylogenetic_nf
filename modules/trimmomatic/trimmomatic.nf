@@ -1,13 +1,6 @@
 // based on https://github.com/nf-modules/trimmomatic.git
 nextflow.enable.dsl =2
-/*
-params.saveMode = 'copy'
-params.filePattern = "./*_{R1,R2}.fastq.gz"
-params.resultsDir = 'results/trimmomatic'
 
-Channel.fromFilePairs(params.filePattern)
-        .into { ch_in_trimmomatic }
-*/
 process TRIMOMMATIC {
 
     publishDir "${params.resultsDir}/trimmomatic/", mode: params.saveMode
