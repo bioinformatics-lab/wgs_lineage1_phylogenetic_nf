@@ -1,4 +1,6 @@
 //based on https://github.com/nf-modules/prokka/blob/master/main.nf
+nextflow.enable.dsl = 2
+
 /*
 Old Inputs TODO
 

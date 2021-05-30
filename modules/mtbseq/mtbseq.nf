@@ -1,4 +1,5 @@
 //based on https://github.com/nf-modules/mtbseq/blob/develop/main.nf
+nextflow.enable.dsl = 2
 
 process MTBFULL {
     publishDir "${params.resultsDir}/mtbseq/", mode: params.saveMode
@@ -13,7 +14,6 @@ process MTBFULL {
 
     input:
     tuple genomeFileName, file(genomeReads)
-
     output:
     path("""${genomeFileName}""")
 
