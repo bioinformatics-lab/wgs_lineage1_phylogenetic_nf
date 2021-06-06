@@ -1,4 +1,6 @@
 //based on https://github.com/nf-modules/mtbseq/blob/develop/main.nf
+//FIXME please
+
 nextflow.enable.dsl = 2
 
 process MTBFULL {
@@ -7,13 +9,13 @@ process MTBFULL {
 //    container 'quay.io/biocontainers/mtbseq:1.0.4--pl526_0'
 //    container 'quay.io/biocontainers/mtbseq:1.0.3--pl526_1'
 //    container 'conmeehan/mtbseq:version1'
-    container 'arnoldliao95/mtbseq' 
+    container 'arnoldliao95/mtbseq'
 
     validExitStatus 0,1,2
     errorStrategy 'ignore'
 
     input:
-    tuple genomeFileName, file(genomeReads)
+    tuple val(genomeFileName), file(genomeReads)
     output:
     path("""${genomeFileName}""")
 
@@ -21,9 +23,9 @@ process MTBFULL {
 
     """
     mkdir ${genomeFileName}
-   
+
     perl /MTBseq_source/MTBseq.pl --step TBfull --thread 8
-    
+
     cp -a Amend ./${genomeFileName}/
     cp -a Bam ./${genomeFileName}/
     cp -a Called ./${genomeFileName}/

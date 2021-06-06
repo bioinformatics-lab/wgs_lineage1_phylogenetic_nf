@@ -5,7 +5,7 @@ include {TRIMMOMATIC} from "./modules/trimmomatic/trimmomatic.nf"
 include {FASTQC_ORIGINAL} from "./modules/fastqc/fastqc.nf"
 include {FASTQC_TRIMMED} from "./modules/fastqc/fastqc.nf"
 include {SPADES} from "./modules/spades/spades.nf"
-
+include {MTBFULL} from "./modules/mtbseq/mtbseq.nf"
 
 
 
@@ -16,6 +16,6 @@ workflow {
 	TRIMMOMATIC(sra_ch)
 	FASTQC_TRIMMED(TRIMMOMATIC.out.trimmed_reads)
 	SPADES(TRIMMOMATIC.out.spades_reads)
-
+	MTBFULL(TRIMMOMATIC.out.mtbseq)
 
 }
