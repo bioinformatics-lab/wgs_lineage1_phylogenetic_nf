@@ -12,22 +12,20 @@ Channel.fromPath("""${params.spadesResults}""")
         .into { ch_in_prokka }
  */
 
-process prokka {
+process PROKKA {
     publishDir "${params.resultsDir}/prokka/", mode: params.saveMode
     container 'quay.io/biocontainers/prokka:1.14.6--pl526_0'
 
     input:
-    path bestContig
+    tuple val(genomeName),file(assembly)
 
     output:
-    path("""${genomeName}""") into ch_out_prokka
+    path("${genomeName}")
 
 
     script:
-    genomeName = bestContig.getName().split("\\_")[0]
-
     """
-    prokka --outdir ./${genomeName} --prefix $genomeName ${bestContig}
+    prokka --outdir ./${genomeName} --prefix $genomeName ${assembly}
     """
 
 }

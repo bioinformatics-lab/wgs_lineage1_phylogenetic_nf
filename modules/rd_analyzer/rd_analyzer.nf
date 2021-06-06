@@ -6,14 +6,13 @@ process RDANALYZER {
     publishDir params.resultsDir, mode: params.saveMode
 
     input:
-    tuple genomeFileName, file(genomeReads)
+    tuple genomeName, file(genomeReads)
 
     output:
     tuple path("""${genomeName}.result"""), path("""${genomeName}.depth""")
 
 
     script:
-    genomeName = genomeFileName.toString().split("\\_")[0]
 
     """
     python  /RD-Analyzer/RD-Analyzer.py  -o ./${genomeName} ${genomeReads[0]} ${genomeReads[1]}

@@ -10,7 +10,7 @@ process SPADES {
     tuple val(genomeName), file(r1), file(r2)
 
     output:
-    path """${genomeName}_scaffolds.fasta"""
+    tuple val(genomeName),file("${genomeName}_scaffolds.fasta"), emit: prokka_contigs
 
 
     script:

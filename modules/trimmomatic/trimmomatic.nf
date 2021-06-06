@@ -9,8 +9,7 @@ process TRIMOMMATIC {
     input:
     tuple val(genomeName), file(genomeReads)
     output:
-    tuple file(fq_1_paired),file(fq_2_paired), emit: trimmed_reads
-    tuple val(genomeName), file("*fastq*"), emit: mtbseq
+    tuple val(genomeName), file("*p.fastq*"), emit: trimmed_reads
     tuple val(genomeName), file(fq_1_paired),file(fq_2_paired), emit: spades_reads
 
     script:
