@@ -5,7 +5,7 @@ process TBPROFILER_PROFILE {
     publishDir params.resultsDir_tbprofiler_per_sample, mode: params.saveMode_tbprofiler_per_sample, enabled: params.shouldPublish_tbprofiler_per_sample
 
     input:
-    tuple val(genomeName), path(genomeReads)
+    tuple val(genomeName), file(genomeReads)
 
     output:
     tuple path("results/*txt"), path("results/*json")
