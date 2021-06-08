@@ -2,19 +2,29 @@
 nextflow.enable.dsl = 2
 
 process FASTQC {
-    publishDir "${params.resultsDir}/fastqc/original/", mode: params.saveMode
-    container 'quay.io/biocontainers/fastqc:0.11.9--0'
+    tag "${genomeName}"
+    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple val(genomeName), file(genomeReads)
+    tuple val(genomeName), path(genomeReads)
 
     output:
-    tuple file('*.html'), file('*.zip')
+    tuple path('*.html'), path('*.zip')
 
 
     script:
 
     """
     fastqc *fastq*
+    """
+
+    stub:
+
+    """
+    echo "fastqc *fastq*"
+
+    mkdir ${genomeName}
+    touch ${genomeName}.html
+    touch ${genomeName}.zip
     """
 }

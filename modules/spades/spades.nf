@@ -2,21 +2,28 @@
 nextflow.enable.dsl = 2
 
 process SPADES {
-	tag "${genomeName}"
-    container 'quay.io/biocontainers/spades:3.14.0--h2d02072_0'
-    publishDir "${params.resultsDir}/spades/", mode: params.saveMode
+    tag "${genomeName}"
+    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple val(genomeName), file(r1), file(r2)
+    tuple val(genomeName), path(genomeReads)
 
     output:
-    tuple val(genomeName),file("${genomeName}_scaffolds.fasta"), emit: prokka_contigs
+    tuple val(genomeName), path("*_contigs.fasta")
 
 
     script:
 
     """
-    spades.py -k 21,33,55,77 --careful --only-assembler --pe1-1 ${r1} --pe1-2 ${r2} -o ${genomeName} -t 2
-    cp ${genomeName}/scaffolds.fasta ${genomeName}_scaffolds.fasta 
+    spades.py -k 21,33,55,77 --careful --only-assembler --pe1-1 ${genomeReads[0]} --pe1-2 ${genomeReads[1]} -o ${genomeName} -t ${task.cpus}
+    cp ${genomeName}/contigs.fasta ${genomeName}_contigs.fasta 
+    """
+
+    stub:
+    """
+    echo  "spades.py -k 21,33,55,77 --careful --only-assembler --pe1-1 ${genomeReads[0]} --pe1-2 ${genomeReads[1]} -o ${genomeName} -t ${task.cpus}"
+    
+    mkdir ${genomeName}
+    touch ${genomeName}_contigs.fasta
     """
 }

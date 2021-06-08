@@ -13,19 +13,29 @@ Channel.fromPath("""${params.spadesResults}""")
  */
 
 process PROKKA {
-    publishDir "${params.resultsDir}/prokka/", mode: params.saveMode
-    container 'quay.io/biocontainers/prokka:1.14.6--pl526_0'
+    tag "${genomeName}"
+    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple val(genomeName),file(assembly)
+    tuple val(genomeName), path(bestContig)
+    path(reference)
 
     output:
     path("${genomeName}")
 
-
     script:
+
     """
-    prokka --outdir ./${genomeName} --prefix $genomeName ${assembly}
+    prokka --outdir ${genomeName} --prefix ${genomeName} --cpus ${task.cpus} --proteins ${reference} --locustag ${genomeName} ${bestContig}
     """
 
+    stub:
+
+    """
+    echo "prokka --outdir ${genomeName} --prefix $genomeName --cpus ${task.cpus} --proteins ${reference} --locustag ${genomeName} ${bestContig}"
+
+
+    mkdir ${genomeName}
+
+    """
 }

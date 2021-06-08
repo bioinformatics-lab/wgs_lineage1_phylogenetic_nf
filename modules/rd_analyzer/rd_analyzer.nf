@@ -1,20 +1,29 @@
-//based on https://github.com/nf-modules/rd-analyzer/blob/master/main.nf
 nextflow.enable.dsl = 2
 
 process RDANALYZER {
-    container 'abhi18av/rdanalyzer'
-    publishDir params.resultsDir, mode: params.saveMode
+    tag "${genomeFileName}"
+    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
+
 
     input:
-    tuple genomeName, file(genomeReads)
+    tuple val(genomeFileName), path(genomeReads)
 
     output:
-    tuple path("""${genomeName}.result"""), path("""${genomeName}.depth""")
+    tuple path("*result"), path("*depth")
 
 
     script:
 
     """
-    python  /RD-Analyzer/RD-Analyzer.py  -o ./${genomeName} ${genomeReads[0]} ${genomeReads[1]}
+    python  /RD-Analyzer/RD-Analyzer.py  -o ${genomeFileName} ${genomeReads[0]} ${genomeReads[1]}
     """
+
+    stub:
+    """
+    echo "python /RD-Analyzer/RD-Analyzer.py -o ${genomeFileName} ${genomeReads[0]} ${genomeReads[1]}"
+
+    touch ${genomeFileName}.result
+    touch ${genomeFileName}.depth
+    """
+
 }

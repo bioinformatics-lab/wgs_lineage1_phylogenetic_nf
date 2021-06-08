@@ -2,22 +2,28 @@
 nextflow.enable.dsl = 2
 
 process SPOTYPING {
-    container 'abhi18av/spotyping'
-    publishDir params.resultsDir, mode: params.saveMode
+    tag "${genomeFileName}"
+    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple genomeName, file(genomeReads)
+    tuple val(genomeFileName), path(genomeReads)
 
     output:
-    tuple file('*.txt'),
-            file('SITVIT*.xls')
+    tuple file('*.txt'), file('SITVIT*.xls')
 
     script:
-    R2 = false
-    genomeReadToBeAnalyzed = R2 ? genomeReads[1] : genomeReads[0]
+    genomeReadToBeAnalyzed = params.R2 ? genomeReads[1] : genomeReads[0]
 
     """
-    python /SpoTyping-v2.0/SpoTyping-v2.0-commandLine/SpoTyping.py ./${genomeReadToBeAnalyzed} -o ${genomeName}.txt
+    python /SpoTyping-v2.0/SpoTyping-v2.0-commandLine/SpoTyping.py ./${genomeReadToBeAnalyzed} -o ${genomeFileName}.txt
+    """
+
+    stub:
+    genomeReadToBeAnalyzed = params.R2 ? genomeReads[1] : genomeReads[0]
+    """
+    echo "python /SpoTyping-v2.0/SpoTyping-v2.0-commandLine/SpoTyping.py ./${genomeReadToBeAnalyzed} -o ${genomeFileName}.txt"
+    touch ${genomeFileName}.txt
+    touch SITVIT_${genomeFileName}.xls
     """
 
 }
