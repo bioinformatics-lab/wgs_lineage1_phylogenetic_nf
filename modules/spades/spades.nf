@@ -6,10 +6,10 @@ process SPADES {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple val(genomeName), path(genomeReads)
+    tuple val(genomeName), file(genomeReads)
 
     output:
-    tuple val(genomeName), path("*_contigs.fasta")
+    tuple val(genomeName), file("*_contigs.fasta")
 
 
     script:
@@ -22,7 +22,7 @@ process SPADES {
     stub:
     """
     echo  "spades.py -k 21,33,55,77 --careful --only-assembler --pe1-1 ${genomeReads[0]} --pe1-2 ${genomeReads[1]} -o ${genomeName} -t ${task.cpus}"
-    
+
     mkdir ${genomeName}
     touch ${genomeName}_contigs.fasta
     """

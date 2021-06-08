@@ -7,7 +7,7 @@ include {FASTQC as FASTQC_TRIMMED} from "./modules/fastqc/fastqc.nf"
 include {SPADES} from "./modules/spades/spades.nf"
 include {MTBFULL} from "./modules/mtbseq/mtbseq.nf"
 include {PROKKA} from "./modules/prokka/prokka.nf"
-include {TBPROFILLER} from "./modules"
+include {TBPROFILLER} from "./modules/tbprofiller/tbprofiller.nf"
 
 workflow {
 	sra_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)
