@@ -1,0 +1,5 @@
+reference:
+  "${baseDir}/data/mock-data/reference.gbk"
+
+reads:
+  "${baseDir}/data/mock-data/*_{1,2}.fastq.gz"

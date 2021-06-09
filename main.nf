@@ -19,13 +19,14 @@ include {RD_ANALYZER} from "./modules/rd_analyzer/rd_analyzer.nf"
 workflow {
 
 // Data Input
-	sra_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)
+//	sra_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)
+	input_ch = Channel.fromFilePairs(params.reads)
 //Export Genomes
-	EXPORT_RAW_GENOMES(sra_ch)
+	EXPORT_RAW_GENOMES(input_ch)
 // Quality control
-	FASTQC_ORIGINAL(sra_ch)
+	FASTQC_ORIGINAL(input_ch)
 	MULTIQC_ORIGINAL(FASTQC_ORIGINAL.out.flatten().collect())
-	TRIMMOMATIC(sra_ch)
+	TRIMMOMATIC(input_ch)
 	FASTQC_TRIMMED(TRIMMOMATIC.out.trimmed_reads)
 	MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
 // Analysis
@@ -35,6 +36,6 @@ workflow {
 	SPADES(TRIMMOMATIC.out.trimmed_reads)
 //	MTBSEQ_PER_SAMPLE(TRIMMOMATIC.out./*FIXME*/,gatkjar_ch)
 	RD_ANALYZER(TRIMMOMATIC.out.trimmed_reads)
-	PROKKA(SPADES.out.prokka_contigs,Channel.fromPath(params.reference))
+	PROKKA(SPADES.out.prokka_contigs,Channel.of(file(params.reference)))
 
 }

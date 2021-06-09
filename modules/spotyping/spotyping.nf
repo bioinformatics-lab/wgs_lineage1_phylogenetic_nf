@@ -1,7 +1,6 @@
 //based on https://github.com/nf-modules/spotyping/blob/master/main.nf
 nextflow.enable.dsl = 2
 
-params.R2 = false
 process SPOTYPING {
     tag "${genomeName}"
     publishDir "${params.resultsDir}/spotyping", mode: params.saveMode, enabled: params.shouldPublish
