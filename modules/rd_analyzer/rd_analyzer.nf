@@ -1,8 +1,8 @@
 nextflow.enable.dsl = 2
 
-process RDANALYZER {
+process RD_ANALYZER {
     tag "${genomeFileName}"
-    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.resultsDir}/rd_analyzer", mode: params.saveMode, enabled: params.shouldPublish
 
 
     input:

@@ -14,7 +14,7 @@ Channel.fromPath("""${params.spadesResults}""")
 
 process PROKKA {
     tag "${genomeName}"
-    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.resultsDir}/prokka", mode: params.saveMode, enabled: params.shouldPublish
 
     input:
     tuple val(genomeName), file(bestContig)
