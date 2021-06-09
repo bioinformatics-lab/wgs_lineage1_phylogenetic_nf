@@ -8,10 +8,10 @@ process EXPORT_RAW_GENOMES {
     input:
     tuple val(genomeName), file(genomeReads)
 
-    output: 
+    output:
     file(genomeReads)
 
-    script:   
+    script:
     """
     """
 

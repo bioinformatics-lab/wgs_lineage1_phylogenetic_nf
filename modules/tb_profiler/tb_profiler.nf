@@ -2,12 +2,14 @@
 nextflow.enable.dsl = 2
 
 process TBPROFILER_PROFILE {
-    publishDir params.resultsDir_tbprofiler_per_sample, mode: params.saveMode_tbprofiler_per_sample, enabled: params.shouldPublish_tbprofiler_per_sample
+    tag "${genomeName}"
+    publishDir "${params.resultsDir}/tb_profiler/profile", mode: params.saveMode, enabled: params.shouldPublish
 
     input:
     tuple val(genomeName), file(genomeReads)
 
     output:
+    path("results/*")
     tuple path("results/*txt"), path("results/*json")
 
 
@@ -29,7 +31,7 @@ process TBPROFILER_PROFILE {
 
 
 process TBPROFILER_COLLATE {
-    publishDir params.resultsDir_tbprofiler_cohort, mode: params.saveMode_tbprofiler_cohort, enabled: params.shouldPublish_tbprofiler_cohort
+    publishDir "${params.resultsDir}/tb_profiler/collate", mode: params.saveMode, enabled: params.shouldPublish
 
     input:
     path("results/*")
