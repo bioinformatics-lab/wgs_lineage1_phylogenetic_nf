@@ -15,4 +15,8 @@ process EXPORT_RAW_GENOMES {
     """
     """
 
+    stub:
+    """
+    """
+
 }
