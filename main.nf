@@ -14,7 +14,7 @@ include {PROKKA} from "./modules/prokka/prokka.nf"
 include {TBPROFILER_PROFILE} from "./modules/tb_profiler/tb_profiler.nf"
 include {TBPROFILER_COLLATE} from "./modules/tb_profiler/tb_profiler.nf"
 include {SPOTYPING} from "./modules/spotyping/spotyping.nf"
-include {RDANALYZER} from "./modules/rd_analyzer/rd_analyzer.nf"
+include {RD_ANALYZER} from "./modules/rd_analyzer/rd_analyzer.nf"
 
 workflow {
 
@@ -34,7 +34,7 @@ workflow {
 	SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
 	SPADES(TRIMMOMATIC.out.trimmed_reads)
 //	MTBSEQ_PER_SAMPLE(TRIMMOMATIC.out./*FIXME*/,gatkjar_ch)
-	RDANALYZER(TRIMMOMATIC.out.trimmed_reads)
+	RD_ANALYZER(TRIMMOMATIC.out.trimmed_reads)
 	PROKKA(SPADES.out.prokka_contigs,Channel.fromPath(params.reference))
 
 }
