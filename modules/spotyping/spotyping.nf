@@ -12,17 +12,14 @@ process SPOTYPING {
     tuple file('*.txt'), file('SITVIT*.xls')
 
     script:
-    R2 = false
-    genomeReadToBeAnalyzed = R2 ? genomeReads[1] : genomeReads[0]
 
     """
-    python /SpoTyping-v2.0/SpoTyping-v2.0-commandLine/SpoTyping.py ./${genomeReadToBeAnalyzed} -o ${genomeName}.txt
+    python /SpoTyping-v2.0/SpoTyping-v2.0-commandLine/SpoTyping.py ./${genomeReads[0]} ./${genomeReads[1]} -o ${genomeName}.txt
     """
 
     stub:
-    genomeReadToBeAnalyzed = params.R2 ? genomeReads[1] : genomeReads[0]
     """
-    echo "python /SpoTyping-v2.0/SpoTyping-v2.0-commandLine/SpoTyping.py ./${genomeReadToBeAnalyzed} -o ${genomeName}.txt"
+    echo "python /SpoTyping-v2.0/SpoTyping-v2.0-commandLine/SpoTyping.py ./${genomeReads[0]} ./${genomeReads[1]} -o ${genomeName}.txt"
     touch ${genomeName}.txt
     touch SITVIT_${genomeName}.xls
     """
