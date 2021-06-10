@@ -1,0 +1,11 @@
+apiKey:
+  "885e996cdbae3a8c1b3fe738bb62ab8d4609"
+
+genomeIds:
+  - "SAMEA5938985"
+
+reference:
+  "${baseDir}/data/test_data/NC000962_3.fasta"
+
+resultsDir:
+  "${baseDir}/wgs_test_output"
