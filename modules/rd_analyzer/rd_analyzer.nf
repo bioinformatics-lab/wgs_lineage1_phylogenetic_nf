@@ -22,8 +22,8 @@ process RD_ANALYZER {
     """
     echo "python /RD-Analyzer/RD-Analyzer.py -o ${genomeName} ${genomeReads[0]} ${genomeReads[1]}"
 
-    touch ${genomeFileName}.result
-    touch ${genomeFileName}.depth
+    touch ${genomeName}.result
+    touch ${genomeName}.depth
     """
 
 }
