@@ -17,8 +17,11 @@ include { TRIMMOMATIC } from "./modules/trimmomatic/trimmomatic.nf"
 workflow {
 
 // Data Input
-	input_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)
-//	input_ch = Channel.fromFilePairs(params.reads)
+if (params.useSRA == false) {
+     input_ch = Channel.fromFilePairs(params.reads)
+} else {
+    input_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)
+}
 //Export Genomes
 	EXPORT_RAW_GENOMES(input_ch)
 // Quality control
