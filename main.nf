@@ -40,7 +40,7 @@ workflow {
 	SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
 	TBPROFILER_PROFILE(TRIMMOMATIC.out.trimmed_reads)
 	TBPROFILER_COLLATE(TBPROFILER_PROFILE.out[0].flatten().collect())
-	PROKKA(SPADES.out.prokka_contigs,Channel.of(file(params.reference)))
+	PROKKA(SPADES.out.prokka_contigs,params.reference)
 	RD_ANALYZER(TRIMMOMATIC.out.trimmed_reads)
 
 
