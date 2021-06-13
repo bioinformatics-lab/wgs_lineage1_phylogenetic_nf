@@ -24,8 +24,7 @@ workflow {
 		input_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)}
 
 	if (params.inputType == "bucket") {
-		reads = params.reads
-		input_ch = Channel.from(file(reads))}
+		input_ch = Channel.fromFilePairs(file(params.reads))}
 
 //Export Genomes
 	EXPORT_RAW_GENOMES(input_ch)
