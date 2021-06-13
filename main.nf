@@ -26,6 +26,7 @@ workflow {
 	if (params.inputType == "bucket") {
 		input_ch = Channel.fromFilePairs(file(params.reads))}
 
+	input_ch.view()
 //Export Genomes
 	EXPORT_RAW_GENOMES(input_ch)
 // Quality control
