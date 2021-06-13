@@ -6,7 +6,7 @@ process FASTQC_ORIGINAL {
     publishDir "${params.resultsDir}/fastqc/original", mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple val(genomeName), file(genomeReads)
+    tuple val(genomeName), path(genomeReads)
 
     output:
     tuple file('*.html'), file('*.zip')

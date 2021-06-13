@@ -6,7 +6,7 @@ process EXPORT_RAW_GENOMES {
 	errorStrategy 'ignore'
 
     input:
-    tuple val(genomeName), file(genomeReads)
+    tuple val(genomeName), path(genomeReads)
 
     output:
     file(genomeReads)

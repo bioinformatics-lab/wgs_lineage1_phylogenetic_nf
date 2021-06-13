@@ -1,3 +1,6 @@
+inputType:
+  "sra"
+
 resultsDir:
   'results/mozGenomes'
 
