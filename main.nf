@@ -24,9 +24,8 @@ workflow {
 		input_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)}
 
 	if (params.inputType == "bucket") {
-		input_ch = Channel.fromFilePairs(file(params.reads))}
-
-	input_ch.view()
+		input_ch = path(params.reads)}
+	log.info "${input_ch}"
 //Export Genomes
 	EXPORT_RAW_GENOMES(input_ch)
 // Quality control
@@ -41,7 +40,7 @@ workflow {
 	SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
 	TBPROFILER_PROFILE(TRIMMOMATIC.out.trimmed_reads)
 	TBPROFILER_COLLATE(TBPROFILER_PROFILE.out[0].flatten().collect())
-	PROKKA(SPADES.out.prokka_contigs,params.reference)
+	PROKKA(SPADES.out.prokka_contigs,path(params.reference))
 	RD_ANALYZER(TRIMMOMATIC.out.trimmed_reads)
 
 
