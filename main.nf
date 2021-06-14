@@ -18,7 +18,7 @@ workflow {
 
 // Data Input
 	if (params.inputType == "reads") {
-		input_ch = Channel.fromFilePairs(params.reads)}
+		input_ch = Channel.of(params.reads)}
 
 	if (params.inputType == "sra") {
 		input_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)}
