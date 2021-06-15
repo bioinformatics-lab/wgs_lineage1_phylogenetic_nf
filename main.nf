@@ -18,13 +18,11 @@ workflow {
 
 // Data Input
 	if (params.inputType == "reads") {
-		input_ch = Channel.of(params.reads)}
+		input_ch = Channel.fromPath(params.reads,checkIfExists: true)}
 
 	if (params.inputType == "sra") {
 		input_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)}
 
-	if (params.inputType == "bucket") {
-		input_ch = Channel.fromFilePairs(params.reads,checkIfExists: true)}
 
 //Export Genomes
 	EXPORT_RAW_GENOMES(input_ch)
