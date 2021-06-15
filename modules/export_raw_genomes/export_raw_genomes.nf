@@ -8,7 +8,7 @@ process EXPORT_RAW_GENOMES {
     path(genomeReads)
 
     output:
-    path(*.fastq.gz)
+    path("*.fastq.gz")
 
     script:
     """
