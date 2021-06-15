@@ -33,7 +33,7 @@ workflow {
 	FASTQC_TRIMMED(TRIMMOMATIC.out.trimmed_reads)
 	MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
 //	Analysis
-	MTBSEQ_PER_SAMPLE(TRIMMOMATIC.out.trimmed_reads,params.gatkjar)
+	MTBSEQ_PER_SAMPLE(TRIMMOMATIC.out.trimmed_reads,params.gatkjar,params.USER)
 	SPADES(TRIMMOMATIC.out.trimmed_reads)
 	SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
 	TBPROFILER_PROFILE(TRIMMOMATIC.out.trimmed_reads)
