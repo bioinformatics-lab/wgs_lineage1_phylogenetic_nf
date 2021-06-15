@@ -9,7 +9,7 @@ process FASTQC_ORIGINAL {
     tuple val(genomeName), path(genomeReads)
 
     output:
-    tuple file('*.html'), file('*.zip')
+    tuple path('*.html'), path('*.zip')
 
 
     script:
