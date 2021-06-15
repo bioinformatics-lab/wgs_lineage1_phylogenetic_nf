@@ -13,7 +13,7 @@ process MTBSEQ_PER_SAMPLE {
 
 
     input:
-    tuple val(genomeFileName), path("${genomeFileName}_${params.mtbseq_library_name}_R?.fastq.gz")
+    each tuple val(genomeFileName), path("${genomeFileName}_${params.mtbseq_library_name}_R?.fastq.gz")
     path(gatk_jar)
     env USER
 

@@ -6,7 +6,7 @@ process RD_ANALYZER {
 
 
     input:
-    tuple val(genomeName), file(genomeReads)
+    tuple val(genomeName), path(genomeReads)
 
     output:
     tuple path("*result"), path("*depth")

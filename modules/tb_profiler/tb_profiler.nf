@@ -6,12 +6,11 @@ process TBPROFILER_PROFILE {
     publishDir "${params.resultsDir}/tb_profiler/profile", mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple val(genomeName), file(genomeReads)
+    tuple val(genomeName), path(genomeReads)
 
     output:
-    path("results/*")
     tuple path("results/*txt"), path("results/*json")
-
+    path("results/*")
 
     script:
     """

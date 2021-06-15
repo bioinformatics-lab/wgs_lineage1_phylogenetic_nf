@@ -18,7 +18,7 @@ workflow {
 
 // Data Input
 	if (params.inputType == "reads") {
-		input_ch = Channel.fromPath(params.reads,checkIfExists: true)}
+		input_ch = Channel.fromFilePairs(params.reads,checkIfExists: true)}
 
 	if (params.inputType == "sra") {
 		input_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)}
@@ -27,19 +27,19 @@ workflow {
 //Export Genomes
 	EXPORT_RAW_GENOMES(input_ch)
 // Quality control
-//	FASTQC_ORIGINAL(input_ch)
-//	MULTIQC_ORIGINAL(FASTQC_ORIGINAL.out.flatten().collect())
-//	TRIMMOMATIC(input_ch)
-//	FASTQC_TRIMMED(TRIMMOMATIC.out.trimmed_reads)
-//	MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
-// Analysis
-//	MTBSEQ_PER_SAMPLE(TRIMMOMATIC.out./*FIXME*/,gatkjar_ch)
-//	SPADES(TRIMMOMATIC.out.trimmed_reads)
-//	SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
-//	TBPROFILER_PROFILE(TRIMMOMATIC.out.trimmed_reads)
-//	TBPROFILER_COLLATE(TBPROFILER_PROFILE.out[0].flatten().collect())
-//	PROKKA(SPADES.out.prokka_contigs,path(params.reference))
-//	RD_ANALYZER(TRIMMOMATIC.out.trimmed_reads)
+	FASTQC_ORIGINAL(input_ch)
+	MULTIQC_ORIGINAL(FASTQC_ORIGINAL.out.flatten().collect())
+	TRIMMOMATIC(input_ch)
+	FASTQC_TRIMMED(TRIMMOMATIC.out.trimmed_reads)
+	MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
+//	Analysis
+	MTBSEQ_PER_SAMPLE(TRIMMOMATIC.out.trimmed_reads,params.gatkjar)
+	SPADES(TRIMMOMATIC.out.trimmed_reads)
+	SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
+	TBPROFILER_PROFILE(TRIMMOMATIC.out.trimmed_reads)
+	TBPROFILER_COLLATE(TBPROFILER_PROFILE.out[1].flatten().collect())
+	PROKKA(SPADES.out.prokka_contigs,params.reference)
+	RD_ANALYZER(TRIMMOMATIC.out.trimmed_reads)
 
 
 }
