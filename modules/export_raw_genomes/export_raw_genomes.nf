@@ -8,7 +8,7 @@ process EXPORT_RAW_GENOMES {
     path(genomeReads)
 
     output:
-    path("raw_genomes")
+    path("raw_genomes/*")
 
     script:
     """
