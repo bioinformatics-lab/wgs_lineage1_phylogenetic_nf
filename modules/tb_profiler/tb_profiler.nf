@@ -14,12 +14,12 @@ process TBPROFILER_PROFILE {
 
     script:
     """
-    tb-profiler profile -1 ${genomeReads[0]} -2 ${genomeReads[1]}  -t ${task.cpus} -p $genomeName --txt
+    tb-profiler profile -1 ${genomeReads[0]} -2 ${genomeReads[1]}  -t ${task.cpus} -p ${genomeName} --txt
     """
 
     stub:
     """
-    echo "tb-profiler profile -1 ${genomeReads[0]} -2 ${genomeReads[1]}  -t ${task.cpus} -p $genomeName --txt"
+    echo "tb-profiler profile -1 ${genomeReads[0]} -2 ${genomeReads[1]}  -t ${task.cpus} -p ${genomeName} --txt"
 
     mkdir results
     touch results/"${genomeName}.results.txt"
