@@ -17,7 +17,7 @@ process PROKKA {
     publishDir "${params.resultsDir}/prokka", mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    each tuple val(genomeName), path(bestContig)
+    tuple val(genomeName), path(bestContig)
     path(reference)
 
     output:
