@@ -7,14 +7,13 @@ nextflow.enable.dsl = 2
 
 process MTBSEQ_PER_SAMPLE {
     tag "${genomeName}"
-    publishDir "${params.resultsDir}/mtbseq", pattern: "${genomeName}_results", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.resultsDir}/mtbseq_per_sample", pattern: "${genomeName}_results", mode: params.saveMode, enabled: params.shouldPublish
     // TODO port to errorStrategy and maxRetries
     validExitStatus 0, 1, 2
 
 
     input:
-//    each tuple val(genomeName), path("${genomeName}_${params.mtbseq_library_name}_R?.fastq.gz")
-    tuple val(genomeName), path(genomeReads)
+    tuple val(genomeName), path("${genomeName}_${params.mtbseq_library_name}_R?.fastq.gz")
     path(gatk_jar)
     env USER
 
@@ -56,6 +55,40 @@ process MTBSEQ_PER_SAMPLE {
 
     mkdir ${genomeName}_results/Position_Tables -p
     touch ${genomeName}_results/Position_Tables/${genomeName}_somelib.gatk_position_table.tab
+    """
+
+}
+
+process MTBSEQ_COHORT {
+    publishDir "${params.resultsDir}/mtbseq_cohort", mode: params.saveMode, enabled: params.shouldPublish
+    // TODO port to errorStrategy and maxRetries
+    validExitStatus 0, 1, 2
+
+    input:
+    path(samples_tsv_ch)
+    path("Called/*")
+    path("Position_Tables/*")
+    path(gatk_jar)
+    env USER
+
+    output:
+    tuple path("Joint"), path("Amend"), path("Groups")
+
+    script:
+
+    """
+    set +e
+    gatk-register ${gatk_jar}
+    export USER=$USER
+    mkdir Joint && MTBseq --step TBjoin --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
+    mkdir Amend && MTBseq --step TBamend --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
+    mkdir Groups && MTBseq --step TBgroups --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
+    """
+
+    stub:
+
+    """
+    mkdir Joint Amend Groups
     """
 
 }
