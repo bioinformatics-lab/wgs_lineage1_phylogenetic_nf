@@ -9,7 +9,7 @@ process MTBSEQ_PER_SAMPLE {
     tag "${genomeName}"
     publishDir "${params.resultsDir}/mtbseq_per_sample", pattern: "${genomeName}_results", mode: params.saveMode, enabled: params.shouldPublish
     // TODO port to errorStrategy and maxRetries
-    validExitStatus 0, 1, 2
+    // validExitStatus 0, 1, 2
 
 
     input:
@@ -62,7 +62,7 @@ process MTBSEQ_PER_SAMPLE {
 process MTBSEQ_COHORT {
     publishDir "${params.resultsDir}/mtbseq_cohort", mode: params.saveMode, enabled: params.shouldPublish
     // TODO port to errorStrategy and maxRetries
-    validExitStatus 0, 1, 2
+    // validExitStatus 0, 1, 2
 
     input:
     path(samples_tsv_ch)
