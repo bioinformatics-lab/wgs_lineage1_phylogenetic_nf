@@ -46,7 +46,7 @@ workflow {
             samples_tsv_file,
             MTBSEQ_PER_SAMPLE.out[2].collect(),
             MTBSEQ_PER_SAMPLE.out[3].collect(),
-            params.gatk_jar,
+            params.gatkjar,
             params.USER)
 
 
