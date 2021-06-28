@@ -5,9 +5,13 @@
 
 nextflow.enable.dsl = 2
 
+params.results_dir = "${params.outdir}/mtbseq/per_sample"
+params.save_mode = 'copy'
+params.should_publish = true
+
 process MTBSEQ_PER_SAMPLE {
     tag "${genomeFileName}"
-    publishDir "${params.results_dir}/mtbseq/samples", pattern: "${genomeFileName}_results", mode: params.save_mode, enabled: params.should_publish
+    publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
     // validExitStatus 0, 1, 2
 
     input:
@@ -52,36 +56,3 @@ process MTBSEQ_PER_SAMPLE {
 
 }
 
-process MTBSEQ_COHORT {
-    publishDir "${params.results_dir}/mtbseq_cohort", mode: params.save_mode, enabled: params.should_publish
-    // TODO port to errorStrategy and maxRetries
-    // validExitStatus 0, 1, 2
-
-    input:
-    path(samples_tsv_ch)
-    path("Called/*")
-    path("Position_Tables/*")
-    path(gatk_jar)
-    env USER
-
-    output:
-    tuple path("Joint"), path("Amend"), path("Groups")
-
-    script:
-
-    """
-    set +e
-    gatk-register ${gatk_jar}
-    export USER=$USER
-    mkdir Joint && MTBseq --step TBjoin --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
-    mkdir Amend && MTBseq --step TBamend --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
-    mkdir Groups && MTBseq --step TBgroups --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
-    """
-
-    stub:
-
-    """
-    mkdir Joint Amend Groups
-    """
-
-}

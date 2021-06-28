@@ -1,9 +1,13 @@
 // based on https://github.com/nf-modules/spades/
 nextflow.enable.dsl = 2
 
+params.results_dir = "${params.outdir}/spades"
+params.save_mode = 'copy'
+params.should_publish = true
+
 process SPADES {
     tag "${genomeName}"
-    publishDir "${params.results_dir}/spades", mode: params.save_mode, enabled: params.should_publish
+    publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
 
     input:
     tuple val(genomeName), path(genomeReads)

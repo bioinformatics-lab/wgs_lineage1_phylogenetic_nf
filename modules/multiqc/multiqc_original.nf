@@ -1,7 +1,11 @@
 nextflow.enable.dsl = 2
 
+params.results_dir = "${params.outdir}/raw_genomes"
+params.save_mode = 'copy'
+params.should_publish = true
+
 process MULTIQC_ORIGINAL {
-    publishDir "${params.results_dir}/multiqc/original", mode: params.save_mode, enabled: params.should_publish
+    publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
 
     input:
     path("*")

@@ -1,26 +1,34 @@
+// based on https://github.com/nf-modules/fastqc
 nextflow.enable.dsl = 2
 
-params.results_dir = "${params.outdir}/raw_genomes"
+params.results_dir = "${params.outdir}/fastqc/trimmed"
 params.save_mode = 'copy'
 params.should_publish = true
 
-process EXPORT_RAW_GENOMES {
+process FASTQC_TRIMMED {
     tag "${genomeName}"
     publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
-    errorStrategy 'ignore'
 
     input:
     tuple val(genomeName), path(genomeReads)
 
     output:
-    path(genomeReads)
+    tuple path('*.html'), path('*.zip')
+
 
     script:
+
     """
+    fastqc *fastq*
     """
 
     stub:
-    """
-    """
 
+    """
+    echo "fastqc *fastq*"
+
+    mkdir ${genomeName}
+    touch ${genomeName}.html
+    touch ${genomeName}.zip
+    """
 }

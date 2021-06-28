@@ -1,9 +1,13 @@
 // based on https://github.com/nf-modules/trimmomatic.git
 nextflow.enable.dsl =2
 
+params.results_dir = "${params.outdir}/trimmomatic"
+params.save_mode = 'copy'
+params.should_publish = true
+
 process TRIMMOMATIC {
     tag "${genomeName}"
-    publishDir "${params.results_dir}/trimmed_reads", mode: params.save_mode, enabled: params.should_publish
+    publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
 
     input:
     tuple val(genomeName), path(genomeReads)
