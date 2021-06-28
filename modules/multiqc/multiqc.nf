@@ -1,7 +1,7 @@
 nextflow.enable.dsl = 2
 
 process MULTIQC_ORIGINAL {
-    publishDir "${params.resultsDir}/multiqc/original", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.results_dir}/multiqc/original", mode: params.save_mode, enabled: params.should_publish
 
     input:
     path("*")
@@ -26,7 +26,7 @@ process MULTIQC_ORIGINAL {
 }
 
 process MULTIQC_TRIMMED {
-    publishDir "${params.resultsDir}/multiqc/trimmed", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.results_dir}/multiqc/trimmed", mode: params.save_mode, enabled: params.should_publish
 
     input:
     file("*")

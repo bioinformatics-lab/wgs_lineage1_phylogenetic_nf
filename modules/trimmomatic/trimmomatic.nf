@@ -3,7 +3,7 @@ nextflow.enable.dsl =2
 
 process TRIMMOMATIC {
     tag "${genomeName}"
-    publishDir "${params.resultsDir}/trimmed_reads", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.results_dir}/trimmed_reads", mode: params.save_mode, enabled: params.should_publish
 
     input:
     tuple val(genomeName), path(genomeReads)

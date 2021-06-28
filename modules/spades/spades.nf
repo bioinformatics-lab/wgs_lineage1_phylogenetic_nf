@@ -3,7 +3,7 @@ nextflow.enable.dsl = 2
 
 process SPADES {
     tag "${genomeName}"
-    publishDir "${params.resultsDir}/spades", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.results_dir}/spades", mode: params.save_mode, enabled: params.should_publish
 
     input:
     tuple val(genomeName), path(genomeReads)

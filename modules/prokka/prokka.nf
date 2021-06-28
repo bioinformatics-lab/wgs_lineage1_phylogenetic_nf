@@ -4,17 +4,17 @@ nextflow.enable.dsl = 2
 /*
 Old Inputs TODO
 
-params.spadesResults = 'results/spades/*_scaffolds.fasta'
-params.resultsDir = 'results/prokka'
-params.saveMode = 'copy'
+params.spades_results = 'results/spades/*_scaffolds.fasta'
+params.results_dir = 'results/prokka'
+params.save_mode = 'copy'
 
-Channel.fromPath("""${params.spadesResults}""")
+Channel.fromPath("""${params.spades_results}""")
         .into { ch_in_prokka }
  */
 
 process PROKKA {
     tag "${genomeName}"
-    publishDir "${params.resultsDir}/prokka", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.results_dir}/prokka", mode: params.save_mode, enabled: params.should_publish
 
     input:
     tuple val(genomeName), path(bestContig)

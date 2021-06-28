@@ -7,7 +7,7 @@ nextflow.enable.dsl = 2
 
 process MTBSEQ_PER_SAMPLE {
     tag "${genomeFileName}"
-    publishDir "${params.resultsDir}/mtbseq/samples", pattern: "${genomeFileName}_results", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.results_dir}/mtbseq/samples", pattern: "${genomeFileName}_results", mode: params.save_mode, enabled: params.should_publish
     // validExitStatus 0, 1, 2
 
     input:
@@ -53,7 +53,7 @@ process MTBSEQ_PER_SAMPLE {
 }
 
 process MTBSEQ_COHORT {
-    publishDir "${params.resultsDir}/mtbseq_cohort", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.results_dir}/mtbseq_cohort", mode: params.save_mode, enabled: params.should_publish
     // TODO port to errorStrategy and maxRetries
     // validExitStatus 0, 1, 2
 

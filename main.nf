@@ -15,14 +15,22 @@ include { TBPROFILER_COLLATE } from "./modules/tb_profiler/tb_profiler.nf"
 include { TBPROFILER_PROFILE } from "./modules/tb_profiler/tb_profiler.nf"
 include { TRIMMOMATIC } from "./modules/trimmomatic/trimmomatic.nf"
 
+
+workflow test {
+    input_ch = Channel.fromFilePairs("${baseDir}/data/reads/*_{1,2}.fastq.gz")
+    FASTQC_ORIGINAL(input_ch)
+	TRIMMOMATIC(input_ch)
+	FASTQC_TRIMMED(TRIMMOMATIC.out.trimmed_reads)
+    SPADES(TRIMMOMATIC.out.trimmed_reads)
+}
 workflow {
 
 // Data Input
-	if (params.inputType == "reads") {
+	if (params.input_type == "reads") {
 		input_ch = Channel.fromFilePairs(params.reads,checkIfExists: true)}
 
-	if (params.inputType == "sra") {
-		input_ch = Channel.fromSRA(params.genomeIds, cache: true, apiKey: params.apiKey)}
+	if (params.input_type == "sra") {
+		input_ch = Channel.fromSRA(params.genome_ids, cache: true, apiKey: params.api_key)}
 
 
 //Export Genomes
@@ -40,7 +48,7 @@ workflow {
 	samples_tsv_file = MTBSEQ_PER_SAMPLE.out[0]
             .collect()
             .flatten().map { n -> "$n" + "\t" + "${params.mtbseq_library_name}" + "\n" }
-            .collectFile(name: 'samples.tsv', newLine: false, storeDir: "${params.resultsDir}/mtbseq_cohort")
+            .collectFile(name: 'samples.tsv', newLine: false, storeDir: "${params.results_dir}/mtbseq_cohort")
 
     MTBSEQ_COHORT(
             samples_tsv_file,

@@ -3,7 +3,7 @@ nextflow.enable.dsl = 2
 
 process FASTQC_ORIGINAL {
     tag "${genomeName}"
-    publishDir "${params.resultsDir}/fastqc/original", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.results_dir}/fastqc/original", mode: params.save_mode, enabled: params.should_publish
 
     input:
     tuple val(genomeName), path(genomeReads)
@@ -31,7 +31,7 @@ process FASTQC_ORIGINAL {
 
 process FASTQC_TRIMMED {
     tag "${genomeName}"
-    publishDir "${params.resultsDir}/fastqc/trimmed", mode: params.saveMode, enabled: params.shouldPublish
+    publishDir "${params.results_dir}/fastqc/trimmed", mode: params.save_mode, enabled: params.should_publish
 
     input:
     tuple val(genomeName), file(genomeReads)
