@@ -27,16 +27,16 @@ process MTBSEQ_PER_SAMPLE {
     gatk-register ${gatk_jar}
     mkdir ${genomeFileName}_results
     MTBseq --step TBfull --thread ${task.cpus}
-    mv  Amend ${workDir}/${genomeFileName}_results/
-    mv  Bam ${workDir}/${genomeFileName}_results/
-    mv  Called ${workDir}/${genomeFileName}_results/
-    mv  Classification ${workDir}/${genomeFileName}_results/
-    mv  GATK_Bam ${workDir}/${genomeFileName}_results/
-    mv  Groups ${workDir}/${genomeFileName}_results/
-    mv  Joint ${workDir}/${genomeFileName}_results/
-    mv  Mpileup ${workDir}/${genomeFileName}_results/
-    mv  Position_Tables ${workDir}/${genomeFileName}_results/
-    mv  Statistics ${workDir}/${genomeFileName}_results/
+    mv  Amend ./${genomeFileName}_results/
+    mv  Bam ./${genomeFileName}_results/
+    mv  Called ./${genomeFileName}_results/
+    mv  Classification ./${genomeFileName}_results/
+    mv  GATK_Bam ./${genomeFileName}_results/
+    mv  Groups ./${genomeFileName}_results/
+    mv  Joint ./${genomeFileName}_results/
+    mv  Mpileup ./${genomeFileName}_results/
+    mv  Position_Tables ./${genomeFileName}_results/
+    mv  Statistics ./${genomeFileName}_results/
     """
 
     stub:
