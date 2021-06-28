@@ -1,16 +1,16 @@
-inputType:
+input_type:
   "sra"
 
-resultsDir:
+results_dir:
   'results/mozGenomes'
 
-saveMode:
+save_mode:
   'copy'
 
-apiKey:
+api_key:
   "FIXME"
 
-genomeIds:
+genome_ids:
   - SAMEA5938985
   - SAMEA5938988
   - SAMEA5938989

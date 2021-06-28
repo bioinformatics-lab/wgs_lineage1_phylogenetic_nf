@@ -1,16 +1,16 @@
-inputType:
+input_type:
   "sra"
 
-resultsDir:
+results_dir:
   'results/malawiGenomes'
 
-saveMode:
+save_mode:
 	'copy'
 
-apiKey:
+api_key:
   "FIXME"
 
-genomeIds:
+genome_ids:
 	- ERR036201
 	- ERR036213
 	- ERR036217

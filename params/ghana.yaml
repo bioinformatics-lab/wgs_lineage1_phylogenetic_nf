@@ -1,16 +1,16 @@
-inputType:
-  "sra
+input_type:
+  "sra"
 
-resultsDir:
+outdir:
   'results/ghanaGenomes'
 
 saveMode:
 	'copy'
 
-apiKey:
+api_key:
   "FIXME"
 
-genomeIds:
+genome_ids:
 	- ERR841438
 	- ERR841440
 	- ERR841441
