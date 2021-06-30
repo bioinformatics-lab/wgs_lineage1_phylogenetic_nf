@@ -5,6 +5,7 @@
 
 nextflow.enable.dsl = 2
 
+params.mtbseq_library_name = "illumina"
 params.results_dir = "${params.outdir}/mtbseq/per_sample"
 params.save_mode = 'copy'
 params.should_publish = true

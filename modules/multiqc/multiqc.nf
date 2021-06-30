@@ -1,10 +1,10 @@
 nextflow.enable.dsl = 2
 
-params.results_dir = "${params.outdir}/multiqc/trimmed"
+params.results_dir = "${params.outdir}/multiqc"
 params.save_mode = 'copy'
 params.should_publish = true
 
-process MULTIQC_TRIMMED {
+process MULTIQC {
     publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
 
     input:
@@ -28,3 +28,4 @@ process MULTIQC_TRIMMED {
     touch multiqc_report.html
     """
 }
+

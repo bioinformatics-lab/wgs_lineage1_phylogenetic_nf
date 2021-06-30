@@ -1,11 +1,11 @@
 // based on https://github.com/nf-modules/fastqc
 nextflow.enable.dsl = 2
 
-params.results_dir = "${params.outdir}/fastqc/trimmed"
+params.results_dir = "${params.outdir}/fastqc"
 params.save_mode = 'copy'
 params.should_publish = true
 
-process FASTQC_TRIMMED {
+process FASTQC {
     tag "${genomeName}"
     publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
 

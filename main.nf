@@ -1,12 +1,12 @@
 nextflow.enable.dsl = 2
 
 include { EXPORT_RAW_GENOMES } from "./modules/export_raw_genomes/export_raw_genomes.nf"
-include { FASTQC_ORIGINAL } from "./modules/fastqc/fastqc_original.nf"
-include { FASTQC_TRIMMED } from "./modules/fastqc/fastqc_trimmed.nf"
+include { FASTQC as FASTQC_ORIGINAL } from "./modules/fastqc/fastqc.nf" addParams(resultsDir: "${params.outdir}/fastqc/original")
+include { FASTQC as FASTQC_TRIMMED } from "./modules/fastqc/fastqc.nf" addParams(resultsDir: "${params.outdir}/fastqc/trimmed")
 include { MTBSEQ_PER_SAMPLE } from "./modules/mtbseq/mtbseq_per_sample.nf"
 include { MTBSEQ_COHORT } from "./modules/mtbseq/mtbseq_cohort.nf"
-include { MULTIQC_ORIGINAL } from "./modules/multiqc/multiqc_original.nf"
-include { MULTIQC_TRIMMED } from "./modules/multiqc/multiqc_trimmed.nf"
+include { MULTIQC as MULTIQC_ORIGINAL } from "./modules/multiqc/multiqc.nf" addParams(resultsDir: "${params.outdir}/multiqc/original")
+include { MULTIQC as MULTIQC_TRIMMED } from "./modules/multiqc/multiqc.nf" addParams(resultsDir: "${params.outdir}/multiqc/trimmed")
 include { PROKKA } from "./modules/prokka/prokka.nf"
 include { RD_ANALYZER } from "./modules/rd_analyzer/rd_analyzer.nf"
 include { SPADES } from "./modules/spades/spades.nf"
@@ -18,26 +18,26 @@ include { TRIMMOMATIC } from "./modules/trimmomatic/trimmomatic.nf"
 workflow {
 
 // Data Input
-	if (params.input_type == "reads") {
-		input_ch = Channel.fromFilePairs(params.reads,checkIfExists: true)}
+    if (params.input_type == "reads") {
+        input_ch = Channel.fromFilePairs(params.reads,checkIfExists: true)}
 
-	if (params.input_type == "sra") {
-		input_ch = Channel.fromSRA(params.genome_ids, cache: true, apiKey: params.api_key)}
+    if (params.input_type == "sra") {
+        input_ch = Channel.fromSRA(params.genome_ids, cache: true, apiKey: params.api_key)}
 
 
 //Export Genomes
-	EXPORT_RAW_GENOMES(input_ch)
+    EXPORT_RAW_GENOMES(input_ch)
 // Quality control
-	FASTQC_ORIGINAL(input_ch)
-	MULTIQC_ORIGINAL(FASTQC_ORIGINAL.out.flatten().collect())
-	TRIMMOMATIC(input_ch)
-	FASTQC_TRIMMED(TRIMMOMATIC.out.trimmed_reads)
-	MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
+    FASTQC_ORIGINAL(input_ch)
+    MULTIQC_ORIGINAL(FASTQC_ORIGINAL.out.flatten().collect())
+    TRIMMOMATIC(input_ch)
+    FASTQC_TRIMMED(TRIMMOMATIC.out.trimmed_reads)
+    MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
 //	Analysis
 
 // TODO: Rewrite this using a sub-workflow
-	MTBSEQ_PER_SAMPLE(TRIMMOMATIC.out.trimmed_reads,params.gatkjar,params.USER)
-	samples_tsv_file = MTBSEQ_PER_SAMPLE.out[0]
+    MTBSEQ_PER_SAMPLE(TRIMMOMATIC.out.trimmed_reads,params.gatkjar,params.USER)
+    samples_tsv_file = MTBSEQ_PER_SAMPLE.out[0]
             .collect()
             .flatten().map { n -> "$n" + "\t" + "${params.mtbseq_library_name}" + "\n" }
             .collectFile(name: 'samples.tsv', newLine: false, storeDir: "${params.outdir}/mtbseq/cohort")
@@ -49,13 +49,12 @@ workflow {
             params.gatkjar,
             params.USER)
 
-
-	SPADES(TRIMMOMATIC.out.trimmed_reads)
-	SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
-	TBPROFILER_PROFILE(TRIMMOMATIC.out.trimmed_reads)
-	TBPROFILER_COLLATE(TBPROFILER_PROFILE.out[1].flatten().collect())
-	PROKKA(SPADES.out.prokka_contigs,params.reference)
-	RD_ANALYZER(TRIMMOMATIC.out.trimmed_reads)
+    SPADES(TRIMMOMATIC.out.trimmed_reads)
+    SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
+    TBPROFILER_PROFILE(TRIMMOMATIC.out.trimmed_reads)
+    TBPROFILER_COLLATE(TBPROFILER_PROFILE.out[1].flatten().collect())
+    PROKKA(SPADES.out.prokka_contigs,params.reference)
+    RD_ANALYZER(TRIMMOMATIC.out.trimmed_reads)
 
 
 }
