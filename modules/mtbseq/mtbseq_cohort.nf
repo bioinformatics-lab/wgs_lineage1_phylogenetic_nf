@@ -29,10 +29,13 @@ process MTBSEQ_COHORT {
     """
     set +e
     gatk-register ${gatk_jar}
-    export USER=$USER
-    mkdir Joint && MTBseq --step TBjoin --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
-    mkdir Amend && MTBseq --step TBamend --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
-    mkdir Groups && MTBseq --step TBgroups --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
+    sleep 10
+    mkdir Joint
+    MTBseq --step TBjoin --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
+    mkdir Amend
+    MTBseq --step TBamend --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
+    mkdir Groups
+    MTBseq --step TBgroups --samples ${samples_tsv_ch} --project ${params.mtbseq_project_name}
     """
 
     stub:
