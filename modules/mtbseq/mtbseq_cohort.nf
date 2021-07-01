@@ -11,9 +11,10 @@ params.should_publish = true
 
 process MTBSEQ_COHORT {
     publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
+    validExitStatus 0, 1, 2
     errorStrategy "retry"
     maxRetries 2
-    maxErrors 2
+    maxErrors 3
 
     input:
     path(samples_tsv_ch)
