@@ -37,6 +37,7 @@ workflow {
 
 // TODO: Rewrite this using a sub-workflow
     MTBSEQ_PER_SAMPLE(TRIMMOMATIC.out.trimmed_reads,params.gatkjar,params.USER)
+
     samples_tsv_file = MTBSEQ_PER_SAMPLE.out[0]
             .collect()
             .flatten().map { n -> "$n" + "\t" + "${params.mtbseq_library_name}" + "\n" }
