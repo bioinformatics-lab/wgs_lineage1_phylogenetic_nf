@@ -9,6 +9,9 @@ process EXPORT_RAW_GENOMES {
     publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
     errorStrategy 'ignore'
 
+    when:
+    params.export_genomes == true
+
     input:
     tuple val(genomeName), path(genomeReads)
 
