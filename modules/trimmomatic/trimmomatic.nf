@@ -45,7 +45,7 @@ process TRIMMOMATIC {
     fq_2_paired = genomeName + '_R2.p.fastq.gz'
     fq_2_unpaired = genomeName + '_R2.s.fastq.gz'
 
-    adapterFile = "/usr/local/share/trimmomatic-0.35-6/adapters/NexteraPE-PE.fa"
+    adapterFile = "/usr/local/share/trimmomatic-0.35-6/adapters/${params.adapter_file_name}"
 
     """
     echo "trimmomatic \
