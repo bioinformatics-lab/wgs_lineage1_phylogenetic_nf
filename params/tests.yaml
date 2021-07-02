@@ -1,0 +1,19 @@
+input_type:
+  "reads"
+
+reads:
+  "${baseDir}/resources/reads/*_{1,2}.fastq.gz"
+
+gatkjar:
+  "${baseDir}/resources/gatkjar/GenomeAnalysisTK.jar"
+
+genome_ids:
+  - "SAMEA5938985"
+  - "ERR036201"
+  - "ERR036213"
+
+reference:
+  "${baseDir}/data/test_data/NC000962_3.fasta"
+
+outdir:
+  "${baseDir}/wgs_test_output"
