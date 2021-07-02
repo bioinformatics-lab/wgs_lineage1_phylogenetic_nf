@@ -13,4 +13,4 @@ touch ./data/mock_data/AE06_R2.fastq.gz
 touch ./data/mock_data/AD07_R1.fastq.gz
 touch ./data/mock_data/AD07_R2.fastq.gz
 touch ./data/mock_data/GenomeAnalysisTK.jar
-touch ./data/mock_data/NC000124.fasta
+touch ./data/mock_data/NC000962_3.fasta
