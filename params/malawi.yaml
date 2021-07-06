@@ -1,7 +1,7 @@
 input_type:
   "sra"
 
-results_dir:
+outdir:
   'results/malawiGenomes'
 
 save_mode:
@@ -301,3 +301,12 @@ genome_ids:
 	- ERR779660
 	- ERR779664
 	- ERR779679
+
+reference:
+  "FIXME"
+
+adapter_file_name:
+	"NexteraPE-PE.fa"
+
+gatkjar:
+  "FIXME"

@@ -1,7 +1,7 @@
 //based on https://github.com/nf-modules/tb-profiler/blob/master/main.nf
 nextflow.enable.dsl = 2
 
-params.results_dir = "${params.outdir}/tb_profiler/collate"
+params.results_dir = "${params.outdir}/tbprofiler/collate"
 params.save_mode = 'copy'
 params.should_publish = true
 

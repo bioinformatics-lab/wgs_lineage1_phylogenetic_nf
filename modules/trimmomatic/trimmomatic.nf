@@ -1,6 +1,7 @@
 // based on https://github.com/nf-modules/trimmomatic.git
 nextflow.enable.dsl =2
 
+params.adapter_file_name = "NexteraPE-PE.fa"
 params.results_dir = "${params.outdir}/trimmomatic"
 params.save_mode = 'copy'
 params.should_publish = true
