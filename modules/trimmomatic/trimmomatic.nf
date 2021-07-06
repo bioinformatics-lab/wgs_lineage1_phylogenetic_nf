@@ -1,6 +1,7 @@
 // based on https://github.com/nf-modules/trimmomatic.git
 nextflow.enable.dsl =2
 
+params.adapter_file_name = "NexteraPE-PE.fa"
 params.results_dir = "${params.outdir}/trimmomatic"
 params.save_mode = 'copy'
 params.should_publish = true
@@ -22,7 +23,7 @@ process TRIMMOMATIC {
     fq_2_paired = genomeName + '_R2.p.fastq.gz'
     fq_2_unpaired = genomeName + '_R2.s.fastq.gz'
 
-    def adapterFile = "/usr/local/share/trimmomatic-0.35-6/adapters/NexteraPE-PE.fa"
+    def adapterFile = "/usr/local/share/trimmomatic-0.35-6/adapters/${params.adapter_file_name}"
 
     """
     trimmomatic \
@@ -45,7 +46,7 @@ process TRIMMOMATIC {
     fq_2_paired = genomeName + '_R2.p.fastq.gz'
     fq_2_unpaired = genomeName + '_R2.s.fastq.gz'
 
-    adapterFile = "/usr/local/share/trimmomatic-0.35-6/adapters/${params.adapter_file_name}"
+    def adapterFile = "/usr/local/share/trimmomatic-0.35-6/adapters/${params.adapter_file_name}"
 
     """
     echo "trimmomatic \
