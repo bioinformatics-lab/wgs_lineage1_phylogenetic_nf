@@ -16,3 +16,12 @@ genome_ids:
   - SAMEA5938989
   - SAMEA104708046
   - SAMEA5938977
+
+reference:
+  "FIXME"
+
+adapter_file_name:
+  "NexteraPE-PE.fa"
+
+gatkjar:
+  "FIXME"
