@@ -1,4 +1,20 @@
-work/
-.nextflow*
-*.nextflow*
+# macos stuff
+.DS_Store
+
+# intellij stuff
+.idea
+
+# scratch directory
+_scratch
+
+# avoid accidentally commiting heavy files
+*/**/*fastq.gz
+*/**/*fasta
+*/**/*gbk
+
+# avoid commiting nextflow logs
+*nextflow*
+
+# ignore work and results directories
+work
 wgs_output/

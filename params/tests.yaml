@@ -17,3 +17,6 @@ reference:
 
 outdir:
   "${baseDir}/wgs_test_output"
+
+adapter_file_name:
+  "NexteraPE-PE.fa"

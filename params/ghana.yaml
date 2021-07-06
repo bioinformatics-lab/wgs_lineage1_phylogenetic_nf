@@ -4,7 +4,7 @@ input_type:
 outdir:
   'results/ghanaGenomes'
 
-saveMode:
+save_mode:
 	'copy'
 
 api_key:
@@ -250,3 +250,12 @@ genome_ids:
 	- ERR551617
 	- ERR868539
 	- ERR552506
+
+reference:
+  "FIXME"
+
+adapter_file_name:
+	"NexteraPE-PE.fa"
+
+gatkjar:
+  "FIXME"

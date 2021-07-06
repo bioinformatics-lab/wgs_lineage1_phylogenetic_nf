@@ -11,8 +11,8 @@ include { PROKKA } from "./modules/prokka/prokka.nf"
 include { RD_ANALYZER } from "./modules/rd_analyzer/rd_analyzer.nf"
 include { SPADES } from "./modules/spades/spades.nf"
 include { SPOTYPING } from "./modules/spotyping/spotyping.nf"
-include { TBPROFILER_COLLATE } from "./modules/tb_profiler/tb_profiler_collate.nf"
-include { TBPROFILER_PROFILE } from "./modules/tb_profiler/tb_profiler_profile.nf"
+include { TBPROFILER_COLLATE } from "./modules/tbprofiler/collate.nf"
+include { TBPROFILER_PROFILE } from "./modules/tbprofiler/profile.nf"
 include { TRIMMOMATIC } from "./modules/trimmomatic/trimmomatic.nf"
 
 workflow {
