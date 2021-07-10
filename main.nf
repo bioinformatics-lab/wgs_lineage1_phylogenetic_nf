@@ -50,11 +50,13 @@ workflow {
             params.gatkjar,
             params.USER)
 
-    SPADES(TRIMMOMATIC.out.trimmed_reads)
-    SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
+// NOTE: Not used in publication
+//    SPADES(TRIMMOMATIC.out.trimmed_reads)
+//    PROKKA(SPADES.out.prokka_contigs,params.reference)
+
+SPOTYPING(TRIMMOMATIC.out.trimmed_reads)
     TBPROFILER_PROFILE(TRIMMOMATIC.out.trimmed_reads)
     TBPROFILER_COLLATE(TBPROFILER_PROFILE.out[1].flatten().collect())
-    PROKKA(SPADES.out.prokka_contigs,params.reference)
     RD_ANALYZER(TRIMMOMATIC.out.trimmed_reads)
 
 
