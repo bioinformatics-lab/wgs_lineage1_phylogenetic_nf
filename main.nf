@@ -3,12 +3,13 @@ nextflow.enable.dsl = 2
 include { EXPORT_RAW_GENOMES } from "./modules/export_raw_genomes/export_raw_genomes.nf"
 include { MTBSEQ_PER_SAMPLE } from "./modules/mtbseq/mtbseq_per_sample.nf"
 include { MTBSEQ_COHORT } from "./modules/mtbseq/mtbseq_cohort.nf"
+// NOTE: Not used in publication
 // include { FASTQC as FASTQC_ORIGINAL } from "./modules/fastqc/fastqc.nf" addParams(resultsDir: "${params.outdir}/fastqc/original")
 // include { FASTQC as FASTQC_TRIMMED } from "./modules/fastqc/fastqc.nf" addParams(resultsDir: "${params.outdir}/fastqc/trimmed")
 // include { MULTIQC as MULTIQC_ORIGINAL } from "./modules/multiqc/multiqc.nf" addParams(resultsDir: "${params.outdir}/multiqc/original")
 // include { MULTIQC as MULTIQC_TRIMMED } from "./modules/multiqc/multiqc.nf" addParams(resultsDir: "${params.outdir}/multiqc/trimmed")
 // include { SPADES } from "./modules/spades/spades.nf"
-include { PROKKA } from "./modules/prokka/prokka.nf"
+// include { PROKKA } from "./modules/prokka/prokka.nf"
 include { RD_ANALYZER } from "./modules/rd_analyzer/rd_analyzer.nf"
 
 include { SPOTYPING } from "./modules/spotyping/spotyping.nf"
